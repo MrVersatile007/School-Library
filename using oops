@@ -1,0 +1,70 @@
+class Library:
+    def __init__ (self,Library_name):
+        self.name= Library_name
+        self.bookList= {1:{"Book Name":"Harry Potter (Philosopher's Stone)","Book Author":"J K Rowling"},
+                        2:{"Book Name":"Harry Potter (Chamber of Secrets)","Book Author":"J K Rowling"},
+                        3:{"Book Name":"Harry Potter (Prisoner of Azkaban)","Book Author":"J K Rowling"},
+                        4:{"Book Name":"Harry Potter (Goblet of Fire)","Book Author":"J K Rowling"},
+                        5:{"Book Name":"Harry Potter (Order of Phoenix)","Book Author":"J K Rowling"},
+                        6:{"Book Name":"Harry Potter ( Half Blood Prince)","Book Author":"J K Rowling"},
+                        7:{"Book Name":"Harry Potter (Deathly Hallows- 1)","Book Author":"J K Rowling"}} 
+        self.lendList={1:{"Book Name":"Harry Potter (Deathly Hallows- 2)","Book Author":"J K Rowling","Borrower Name":"Tarun","Contact": 1234567890}}
+    def displayBooks(self):
+        for i in self.bookList:
+            print("BookID--",i,"--",self.bookList[i])
+        
+    def addNewBook(self,name,author):
+        self.bookList[len(self.bookList)+1]={"Book Name":name,"Book Author":author}
+        print("\n\nBook Added Successfully\n\n",self.displayBooks(),"\n\n")
+        
+    def lendBook(self,bookID,name,contact):
+        self.lendList[len(self.lendList)+1]=self.lendList.update(self.bookList[bookID]) 
+        self.lendList.update({'Borrower Name' : name, 'Contact' : contact})
+        
+    def returnBook(self,bookID, bookName, bookAuthor):
+        self.bookList[bookID]:{"Book Name":bookName,"Book Author":bookAuthor}
+        print('Returned Successfully')
+        
+obj= Library('Tarun')
+while True:
+#     try:
+        
+    print(f"\n\nwelcome to {obj.name}'s Library please select your choice:")
+    print("\n\n(1) Display Books\n(2) Add New Book\n(3) Lend A Book\n(4) Return Book\n(5) All Borrower's Details\n(6) Exit\n\n")
+    x= int(input())
+    if x==1:
+        obj.displayBooks()
+    elif x==2:
+        newBookName = input("\nEnter the 'Book Name' you want to add 'CAREFULLY !':\n")
+        newBookAuthor = input("\nEnter the 'Book Author' you want to add 'CAREFULLY !':\n\n")
+        obj.addNewBook(newBookName,newBookAuthor)
+    elif x==3:
+        obj.displayBooks()
+        bookID= int(input("\nEnter the book ID you have to lend from above:\n"))
+        if bookID in obj.bookList.keys():
+            borrowerName= input("\nEnter Borrower Name :")
+            borrowerContact= int(input("\nPlease enter borrowers Phone no.\n\n"))
+            obj.lendBook(bookID,borrowerName,borrowerContact)
+        elif bookID not in obj.bookList.keys():
+            print('Please enter valid Book ID from the list shown above :')
+    elif x==4:
+        bookID= int(input("\nenter your bookID: "))
+        if bookID in obj.bookList.keys():
+            print("\nnote that we already have a book with this ID.")
+            print("You might have entered wrong Book ID, contact support and get correct ID for your book\n")
+        elif bookID not in obj.bookList.keys():
+            bookName = input("\nEnter the 'Book Name' you want to add 'CAREFULLY !':\n")
+            bookAuthor = input("\nEnter the 'Book Author' you want to add 'CAREFULLY !':\n\n")
+            obj.returnBook(bookID,bookName,bookAuthor)
+    elif x==5:
+        for i in obj.lendList:
+            for j in obj.lendList[i]:
+                print(j," : ",obj.lendList[i][j])
+            print("-----")
+    elif x==6:
+        break
+    else:
+        print("invalid key")
+#     except:
+#         print('Please enter valid value')
+print("THANK YOU !, VISIT AGAIN")
